@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'com.bmuschko.docker-remote-api' version '6.4.0'
     id 'org.unbroken-dome.xjc' version '1.4.2'
-    id 'java' apply(true)
+    id 'java'
 }
 
 apply plugin: "java"
@@ -14,7 +14,7 @@ group 'com.bundesbank'
 
 version '1.0'
 
-sourceCompatibility = 13
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -35,7 +35,5 @@ dependencies {
 }
 
 xjcGenerate {
-    targetVersion = '2.1'
-    extension = true
-//    extraArgs = [ '-Xannotate' ]
+    source = fileTree('src/main/schema') { include '*.xsd' }
 }
