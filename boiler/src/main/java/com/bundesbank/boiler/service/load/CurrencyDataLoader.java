@@ -34,22 +34,21 @@ public class CurrencyDataLoader {
     private final RestTemplate client = new RestTemplate();
     private final Unmarshaller unmarshaller;
 
-    public CurrencyDataLoader() throws JAXBException {
+    private CurrencyDataSaver currencyDataSaver;
+
+    public CurrencyDataLoader(CurrencyDataSaver currencyDataSaver) throws JAXBException {
+        this.currencyDataSaver = currencyDataSaver;
         this.unmarshaller = createUnmarshaller();
     }
 
     public void loadCurrencyData() throws JAXBException, XMLStreamException, IOException {
-        for(BankCurrencies cur : BankCurrencies.values()){
-            CompactData compactData = loadCurrencyData(cur.name());
+        for(BankCurrency currency : BankCurrency.values()){
+            CompactData compactData = loadCurrencyData(currency.name());
             SeriesType seriesType = (SeriesType) compactData.getDataSet().getSeriesAndAnnotations().get(0);
             List<ObsType> obsTypes = seriesType.getObs();
-            LOG.info("loaded " + cur + " size " + obsTypes.size());
-            persistCurrencies(obsTypes);
+            currencyDataSaver.saveCurrencyData(obsTypes, currency, seriesType.getBBKID());
+            LOG.info("loaded and saved " + currency + " size " + obsTypes.size());
         }
-    }
-
-    private void persistCurrencies(List<ObsType> seriesType) {
-
     }
 
     private CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException, IOException {

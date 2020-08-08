@@ -1,9 +1,10 @@
 package com.bundesbank.boiler.persistance.entity;
 
+import com.bundesbank.boiler.service.load.BankCurrency;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Access(AccessType.FIELD)
@@ -11,14 +12,16 @@ import java.time.LocalDateTime;
 public class CurrencyData {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private String id;
+    private Long id;
+    @Enumerated(EnumType.STRING)
     @Column(name = "CURRENCY_ID")
-    private String currencyId;
+    private BankCurrency currencyId;
     @Column(name = "BBK_ID")
     private String bbkId;
     @Column(name = "TIME_PERIOD")
-    private LocalDateTime timePeriod;
+    private LocalDate timePeriod;
     @Column(name = "BBK_OBS_STATUS")
     private String bbkObsStatus;
     @Column(name = "OBS_VALUE")
@@ -26,19 +29,19 @@ public class CurrencyData {
     @Column(name = "BBK_DIFF")
     private BigDecimal bbkDiff;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCurrencyId() {
+    public BankCurrency getCurrencyId() {
         return currencyId;
     }
 
-    public void setCurrencyId(String currencyId) {
+    public void setCurrencyId(BankCurrency currencyId) {
         this.currencyId = currencyId;
     }
 
@@ -50,11 +53,11 @@ public class CurrencyData {
         this.bbkId = bbkId;
     }
 
-    public LocalDateTime getTimePeriod() {
+    public LocalDate getTimePeriod() {
         return timePeriod;
     }
 
-    public void setTimePeriod(LocalDateTime timePeriod) {
+    public void setTimePeriod(LocalDate timePeriod) {
         this.timePeriod = timePeriod;
     }
 

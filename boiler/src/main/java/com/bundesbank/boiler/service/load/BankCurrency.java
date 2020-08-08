@@ -1,6 +1,6 @@
 package com.bundesbank.boiler.service.load;
 
-public enum BankCurrencies {
+public enum BankCurrency {
     AUD,
     BGN,
     BRL,
