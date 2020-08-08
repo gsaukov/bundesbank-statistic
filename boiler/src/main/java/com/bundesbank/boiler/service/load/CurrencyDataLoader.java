@@ -1,8 +1,18 @@
 package com.bundesbank.boiler.service.load;
 
 
+import de.bundesbank.statistik.zeitreihen.bbkcompact.CompactData;
+import de.bundesbank.statistik.zeitreihen.bbkcompact.ObsType;
+import de.bundesbank.statistik.zeitreihen.bbkcompact.SeriesType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -10,6 +20,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -19,15 +30,14 @@ public class CurrencyDataLoader {
     private static final String REST_URI = "https://www.bundesbank.de/statistic-rmi/StatisticDownload";
     private static final String PREFIX = "BBEX3.D.";
     private static final String POSTFIX = ".EUR.BB.AC.000";
-    private final Client client = ClientBuilder.newClient();
+    private final RestTemplate client = new RestTemplate();
     private final Unmarshaller unmarshaller;
 
     public CurrencyDataLoader() throws JAXBException {
         this.unmarshaller = createUnmarshaller();
     }
 
-    @Override
-    public void loadCurrencyData() throws JAXBException, XMLStreamException {
+    public void loadCurrencyData() throws JAXBException, XMLStreamException, IOException {
         for(BankCurrencies cur : BankCurrencies.values()){
             CompactData compactData = loadCurrencyData(cur.name());
             SeriesType seriesType = (SeriesType) compactData.getDataSet().getSeriesAndAnnotations().get(0);
@@ -41,13 +51,30 @@ public class CurrencyDataLoader {
 
     }
 
-    public CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException {
-        InputStream is = client.target(REST_URI)
+    public CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException, IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(REST_URI)
                 .queryParam("tsId", getCurrencyQueryParam(currency))
                 .queryParam("its_fileFormat", "sdmx")
-                .queryParam("mode", "its")
-                .request(MediaType.APPLICATION_XML)
-                .get().readEntity(InputStream.class);
+                .queryParam("mode", "its");
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<Resource> response = client.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                Resource.class);
+
+        InputStream is = response.getBody().getInputStream();
+//        InputStream is = client. .target(REST_URI)
+//                .queryParam("tsId", getCurrencyQueryParam(currency))
+//                .queryParam("its_fileFormat", "sdmx")
+//                .queryParam("mode", "its")
+//                .request(MediaType.APPLICATION_XML)
+//                .get().readEntity(InputStream.class);
         return unmarshalStream(is);
     }
 
