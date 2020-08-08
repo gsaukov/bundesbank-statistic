@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bundesbank Zeitreihen -->
+<xs:schema xmlns="http://www.bundesbank.de/statistik/zeitreihen/BBKcompact" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:compact="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/compact" xmlns:common="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/common" xmlns:message="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://www.bundesbank.de/statistik/zeitreihen/BBKcompact" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+    <xs:import namespace="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/compact" schemaLocation="SDMXCompactData.xsd"/>
+    <xs:import namespace="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/common" schemaLocation="SDMXCommon.xsd"/>
+    <xs:import namespace="http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message" schemaLocation="SDMXMessage.xsd"/>
+    <xs:element name="CompactData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Header" type="HeaderType"/>
+                <xs:element name="DataSet" type="DataSetType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="DataSetType">
+        <xs:complexContent>
+            <xs:extension base="compact:DataSetType">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="Series"/>
+                    <xs:element name="Annotations" type="common:AnnotationsType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ContactType">
+        <xs:complexContent>
+            <xs:extension base="message:ContactType">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Email" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="HeaderType">
+        <xs:annotation>
+            <xs:documentation>HeaderType defines the header fields used for all messages. ID identifies a data flow definition, which, when combined with time, uniquely identifies the data set. Test indicates whather the message is for test purposes or not. Truncated is used in data messages which are responding to Query messages, and is set to true only if the response has been truncated to meet size limits suggested by the defaultLimit attribute in the Query mesage.  Name provides a name for the transmission. Prepared is the date prepared. Sender is information about the sender, and Receiver is information about the receiver. Agency provides the code identifier/abbreviation for the maintenance agency of a data set. Data set id provides an identifier for a contained data set. Action code provides a code for determining whether the enclosed message is an Update or Delete message (not to be used with the UtilityData message). KeyFamilyRef is used to reference a key family for a contained data set, using its id. (This information is required at the DataSet level for some messages, but is provided here as a convenience for those messages which do not require it.) KeyFamilyAgency specifies the agency of the key family using its coded id.  Fields which refer to a contained data set need not be used if the message contains a query or structural information - these messages provide specific fields for holding this information. The ones here are not to be used as defaults. Extracted is a time-stamp from the system rendering the data; ReportingBegin and ReportingEnd provide the time period covered by the message (in the case of data). Source provides human-readable information about the source of the data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ID" type="common:IDType"/>
+            <xs:element name="Test" type="xs:boolean" default="false"/>
+            <xs:element name="Truncated" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="Name" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Prepared" type="message:HeaderTimeType"/>
+            <xs:element name="Sender" type="PartyTypeOptID" maxOccurs="unbounded">
+                <xs:unique name="SDMX_SenderNameLanguageUniqueness">
+                    <xs:selector xpath="message:Name"/>
+                    <xs:field xpath="@xml:lang"/>
+                </xs:unique>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PartyTypeOptID">
+        <xs:sequence>
+            <xs:element name="Name" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- This is for the organization name, not the contact name -->
+            <xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:NMTOKEN" use="optional"/>
+        <!-- From organization codelist or agency codelist, depending on where used-->
+    </xs:complexType>
+    <xs:element name="Series" type="SeriesType" substitutionGroup="compact:Series"/>
+    <xs:complexType name="SeriesType">
+        <xs:complexContent>
+            <xs:extension base="compact:SeriesType">
+                <xs:sequence>
+                    <xs:element ref="Obs" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="FREQ" type="CL_FREQ" use="required"/>
+                <xs:attribute name="BBK_ID" type="CL_BBK_ID" use="required"/>
+                <xs:attribute name="DECIMALS" type="CL_DECIMALS" use="required"/>
+                <xs:attribute name="UNIT" type="xs:string" use="required"/>
+                <xs:attribute name="UNIT_MULT" type="CL_UNIT_MULT" use="required"/>
+                <xs:attribute name="BBK_TITLE" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_TITLE_ENG" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_GRAPHTITLE" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_GRAPHTITLE_ENG" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_GRAPHPOS" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_GEN" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_GEN_ENG" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_SRC" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_SRC_ENG" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_METH" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_METH_ENG" type="xs:string" use="optional"/>
+                <xs:attribute name="RECORDMETH" use="optional">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="BASEYEAR" use="optional">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="4"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="DOM_SER_IDS" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="Obs" type="ObsType" substitutionGroup="compact:Obs"/>
+    <xs:complexType name="ObsType">
+        <xs:complexContent>
+            <xs:extension base="compact:ObsType">
+                <xs:attribute name="TIME_PERIOD" type="common:TimePeriodType" use="required"/>
+                <xs:attribute name="OBS_VALUE" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_OBS_STATUS" type="CL_BBK_OBS_STATUS" use="optional"/>
+                <xs:attribute name="BBK_DIFF" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_DIFF_Y" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_DIFF_A" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_DIFF_Y_A" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_EURO" type="xs:double" use="optional"/>
+                <xs:attribute name="BBK_COMM_OBS" type="xs:string" use="optional"/>
+                <xs:attribute name="BBK_COMM_OBS_ENG" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="IDType">
+        <xs:annotation>
+            <xs:documentation>IDType provides a type which is used for restricting the characters in codes and IDs throughout all SDMX-ML messages. Valid characters include A-Z, a-z, @, 0-9, _, -, $.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([A-Z]|[a-z]|\*|@|[0-9]|_|$|\-)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CL_FREQ">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Jährlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Annual</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="H">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Halbjährlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Semiannual</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Q">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Vierteljährlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Quarterly</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="F">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zweimonatlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Bi-monthly</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="M">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Monatlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Monthly</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="W">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Wöchentlich</xs:documentation>
+                    <xs:documentation xml:lang="en">Weekly</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="D">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Täglich</xs:documentation>
+                    <xs:documentation xml:lang="en">Daily</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CL_DECIMALS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>0</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>1</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>2</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>3</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>4</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>5</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>6</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>7</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>8</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>9</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CL_UNIT_MULT">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Eins</xs:documentation>
+                    <xs:documentation xml:lang="en">one</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehn</xs:documentation>
+                    <xs:documentation xml:lang="en">ten</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hundert</xs:documentation>
+                    <xs:documentation xml:lang="en">hundred</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Tausend</xs:documentation>
+                    <xs:documentation xml:lang="en">thousand</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehntausend</xs:documentation>
+                    <xs:documentation xml:lang="en">ten thousand</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hunderttausend</xs:documentation>
+                    <xs:documentation xml:lang="en">one hundred thousand</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Millionen</xs:documentation>
+                    <xs:documentation xml:lang="en">million</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehn Millionen</xs:documentation>
+                    <xs:documentation xml:lang="en">ten million</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hundert Millionen</xs:documentation>
+                    <xs:documentation xml:lang="en">one hundred million</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Milliarden</xs:documentation>
+                    <xs:documentation xml:lang="en">billion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehn Milliarden</xs:documentation>
+                    <xs:documentation xml:lang="en">ten billion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hundert Milliarden</xs:documentation>
+                    <xs:documentation xml:lang="en">one hundred billion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Billionen</xs:documentation>
+                    <xs:documentation xml:lang="en">trillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehn Billionen</xs:documentation>
+                    <xs:documentation xml:lang="en">ten trillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hundert Billionen</xs:documentation>
+                    <xs:documentation xml:lang="en">one hundred trillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="15">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Billiarden</xs:documentation>
+                    <xs:documentation xml:lang="en">quadrillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="16">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Zehn Billiarden</xs:documentation>
+                    <xs:documentation xml:lang="en">ten quadrillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="17">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Hundert Billiarden</xs:documentation>
+                    <xs:documentation xml:lang="en">one hundred quadrillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="18">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Trillionen</xs:documentation>
+                    <xs:documentation xml:lang="en">quintillion</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CL_BBK_OBS_STATUS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Normaler Wert</xs:documentation>
+                    <xs:documentation xml:lang="en">Normal value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="B">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Bruch</xs:documentation>
+                    <xs:documentation xml:lang="en">Break</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="C">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Berechneter Wert</xs:documentation>
+                    <xs:documentation xml:lang="en">Calculated value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="E">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Geschätzter Wert</xs:documentation>
+                    <xs:documentation xml:lang="en">Estimated value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="F">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Vorhersagewert</xs:documentation>
+                    <xs:documentation xml:lang="en">Forecast value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="H">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Fehlender Wert (Feiertag, Wochenende)</xs:documentation>
+                    <xs:documentation xml:lang="en">Missing value; holiday or weekend</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="K">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Kein Wert vorhanden</xs:documentation>
+                    <xs:documentation xml:lang="en">No value available</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="L">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Fehlender Wert (data exist but not collected)</xs:documentation>
+                    <xs:documentation xml:lang="en">Missing value; data exist but were not collected</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="M">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Fehlender Wert (data cannot exist)</xs:documentation>
+                    <xs:documentation xml:lang="en">Missing value; data cannot exist</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="N">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Nichts vorhanden</xs:documentation>
+                    <xs:documentation xml:lang="en">Nothing exists</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="P">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Vorläufiger Wert</xs:documentation>
+                    <xs:documentation xml:lang="en">Provisional value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Berichtigter Wert</xs:documentation>
+                    <xs:documentation xml:lang="en">Corrected value</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="S">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">geschätzt</xs:documentation>
+                    <xs:documentation xml:lang="en">Strike</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="X">
+                <xs:annotation>
+                    <xs:documentation xml:lang="de">Angaben fallen später an</xs:documentation>
+                    <xs:documentation xml:lang="en">Value available later</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CL_BBK_ID">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="6"/>
+            <xs:maxLength value="76"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
