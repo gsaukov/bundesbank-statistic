@@ -1,4 +1,4 @@
-package com.bundesbank.boiler.persistance.h2;
+package com.bundesbank.boiler.config.h2;
 
 import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;

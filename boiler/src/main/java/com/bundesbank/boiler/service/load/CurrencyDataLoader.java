@@ -1,6 +1,5 @@
 package com.bundesbank.boiler.service.load;
 
-
 import de.bundesbank.statistik.zeitreihen.bbkcompact.CompactData;
 import de.bundesbank.statistik.zeitreihen.bbkcompact.ObsType;
 import de.bundesbank.statistik.zeitreihen.bbkcompact.SeriesType;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@Service
 public class CurrencyDataLoader {
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrencyDataLoader.class);
@@ -51,40 +52,29 @@ public class CurrencyDataLoader {
 
     }
 
-    public CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException, IOException {
+    private CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException, IOException {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(REST_URI)
                 .queryParam("tsId", getCurrencyQueryParam(currency))
                 .queryParam("its_fileFormat", "sdmx")
                 .queryParam("mode", "its");
 
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
         HttpEntity<Resource> response = client.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
-                entity,
+                new HttpEntity<>(headers),
                 Resource.class);
 
-        InputStream is = response.getBody().getInputStream();
-//        InputStream is = client. .target(REST_URI)
-//                .queryParam("tsId", getCurrencyQueryParam(currency))
-//                .queryParam("its_fileFormat", "sdmx")
-//                .queryParam("mode", "its")
-//                .request(MediaType.APPLICATION_XML)
-//                .get().readEntity(InputStream.class);
-        return unmarshalStream(is);
+        return unmarshalStream(response.getBody().getInputStream());
     }
-
 
     private String getCurrencyQueryParam(String currency) {
         return PREFIX + currency + POSTFIX;
     }
 
     private CompactData unmarshalStream (InputStream is) throws JAXBException, XMLStreamException {
-
         JAXBElement<CompactData> el =  unmarshaller.unmarshal(new StreamSource(is), CompactData.class);
         return el.getValue();
     }

@@ -18,7 +18,7 @@ spring:
       connectionTimeout: 30000
 
   liquibase:
-    change-log: classpath:db/changelog-master.xml
+    change-log: classpath:db/changelog-master.yaml
 
 server:
   port: 8212
