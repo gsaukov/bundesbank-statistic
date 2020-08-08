@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.9.RELEASE'
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'com.bmuschko.docker-remote-api' version '6.4.0'
     id 'java'
 }
@@ -17,9 +17,11 @@ repositories {
 }
 
 dependencies {
+//    compile "org.springframework.boot:spring-boot-starter-parent"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "com.h2database:h2:1.4.200"
 
     runtime "org.liquibase:liquibase-core:3.10.2"
 }
