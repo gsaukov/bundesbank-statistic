@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: boiler
+  datasource:
+    url: jdbc:h2:file:./data/db/spDb;MODE=Oracle
+    username: sa
+    password:
+    type:
+    driver-class-name: org.h2.Driver
+    liquibase:
+      change-log: classpath:db/changelog-master.yaml
+
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 6
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+
+  liquibase:
+    change-log: classpath:db/changelog-master.xml
+
+server:
+  port: 8212
+  error.whitelabel.enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+          include: "*"

@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.9.RELEASE'
+    id 'com.bmuschko.docker-remote-api' version '6.4.0'
+    id 'java'
+}
+
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+group 'com.bundesbank'
+
+sourceCompatibility = 13
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    runtime "org.liquibase:liquibase-core:3.10.2"
+}
+
+version '1.0'

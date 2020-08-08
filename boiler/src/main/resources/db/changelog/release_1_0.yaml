@@ -1,0 +1,57 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: CURRENCY_DATA
+      author: gsaukov
+      changes:
+        - createTable:
+            tableName: CURRENCY_DATA
+            columns:
+              - column:
+                  name: ID
+                  type: varchar(32)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: CURRENCY_ID
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: BBK_ID
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: TIME_PERIOD
+                  type: dateTime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: BBK_OBS_STATUS
+                  type: varchar(32)
+              - column:
+                  name: OBS_VALUE
+                  type: number(10,4)
+              - column:
+                  name: BBK_DIFF
+                  type: number(10,4)
+        - createIndex:
+            indexName: IDX_CURRENCY_DATA_CUR_ID
+            tableName: CURRENCY_DATA
+            columns:
+              - column:
+                  name: CURRENCY_ID
+        - createIndex:
+            indexName: IDX_CURRENCY_DATA_TIME_PERIOD
+            tableName: CURRENCY_DATA
+            columns:
+              - column:
+                  name: TIME_PERIOD
+        - createIndex:
+            indexName: IDX_CURRENCY_DATA_OBS_STATUS
+            tableName: CURRENCY_DATA
+            columns:
+              - column:
+                  name: BBK_OBS_STATUS
