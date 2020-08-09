@@ -28,6 +28,8 @@ dependencies {
 
     compile "com.h2database:h2:1.4.200"
 
+    compile 'io.springfox:springfox-boot-starter:3.0.0'
+
     compile 'org.jvnet.jaxb2_commons:jaxb2-basics:0.12.0'
     compile 'org.jvnet.jaxb2_commons:jaxb2-basics-annotate:1.1.0'
 

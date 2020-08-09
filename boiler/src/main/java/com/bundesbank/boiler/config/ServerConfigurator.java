@@ -1,6 +1,5 @@
 package com.bundesbank.boiler.config;
 
-
 import com.bundesbank.boiler.persistance.repository.RateDataRepository;
 import com.bundesbank.boiler.service.load.RateDataLoader;
 import org.slf4j.Logger;
