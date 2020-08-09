@@ -8,8 +8,8 @@ import java.time.LocalDate;
 
 @Entity
 @Access(AccessType.FIELD)
-@Table(name = "CURRENCY_DATA")
-public class CurrencyData {
+@Table(name = "RATE_DATA")
+public class RateData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

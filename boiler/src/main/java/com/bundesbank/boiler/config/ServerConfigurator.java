@@ -1,8 +1,8 @@
 package com.bundesbank.boiler.config;
 
 
-import com.bundesbank.boiler.persistance.repository.CurrencyDataRepository;
-import com.bundesbank.boiler.service.load.CurrencyDataLoader;
+import com.bundesbank.boiler.persistance.repository.RateDataRepository;
+import com.bundesbank.boiler.service.load.RateDataLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +20,32 @@ public class ServerConfigurator implements ApplicationListener<ApplicationReadyE
     private static Logger LOG = LoggerFactory.getLogger(ServerConfigurator.class);
 
     @Autowired
-    private CurrencyDataLoader currencyDataLoader;
+    private RateDataLoader rateDataLoader;
 
     @Autowired
-    private CurrencyDataRepository currencyDataRepository;
+    private RateDataRepository rateDataRepository;
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        long count = currencyDataRepository.count();
+        long count = rateDataRepository.count();
         if(count == 0){
-            loadCurrencyData();
+            loadRateData();
         } else {
-//            currencyDataRepository.
+            printLastUpdated();
         }
     }
 
-    private void loadCurrencyData(){
+    private void loadRateData(){
         try {
-            currencyDataLoader.loadCurrencyData();
+            rateDataLoader.loadRateData();
         } catch (JAXBException | XMLStreamException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void printLastUpdated() {
+        rateDataRepository.findLastUpdated().stream()
+                .forEach(e -> LOG.info(e.getCurrencyId() + " last update " + e.getTimePeriod()));
     }
 
 }

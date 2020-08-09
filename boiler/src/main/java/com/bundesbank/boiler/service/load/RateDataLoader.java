@@ -25,33 +25,33 @@ import java.io.InputStream;
 import java.util.List;
 
 @Service
-public class CurrencyDataLoader {
+public class RateDataLoader {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CurrencyDataLoader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RateDataLoader.class);
     private static final String REST_URI = "https://www.bundesbank.de/statistic-rmi/StatisticDownload";
     private static final String PREFIX = "BBEX3.D.";
     private static final String POSTFIX = ".EUR.BB.AC.000";
     private final RestTemplate client = new RestTemplate();
     private final Unmarshaller unmarshaller;
 
-    private CurrencyDataSaver currencyDataSaver;
+    private RateDataSaver rateDataSaver;
 
-    public CurrencyDataLoader(CurrencyDataSaver currencyDataSaver) throws JAXBException {
-        this.currencyDataSaver = currencyDataSaver;
+    public RateDataLoader(RateDataSaver rateDataSaver) throws JAXBException {
+        this.rateDataSaver = rateDataSaver;
         this.unmarshaller = createUnmarshaller();
     }
 
-    public void loadCurrencyData() throws JAXBException, XMLStreamException, IOException {
+    public void loadRateData() throws JAXBException, XMLStreamException, IOException {
         for(BankCurrency currency : BankCurrency.values()){
-            CompactData compactData = loadCurrencyData(currency.name());
+            CompactData compactData = loadRateData(currency.name());
             SeriesType seriesType = (SeriesType) compactData.getDataSet().getSeriesAndAnnotations().get(0);
             List<ObsType> obsTypes = seriesType.getObs();
-            currencyDataSaver.saveCurrencyData(obsTypes, currency, seriesType.getBBKID());
+            rateDataSaver.saveRateData(obsTypes, currency, seriesType.getBBKID());
             LOG.info("loaded and saved " + currency + " size " + obsTypes.size());
         }
     }
 
-    private CompactData loadCurrencyData (String currency) throws JAXBException, XMLStreamException, IOException {
+    private CompactData loadRateData (String currency) throws JAXBException, XMLStreamException, IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
 
@@ -93,6 +93,5 @@ public class CurrencyDataLoader {
                 );
         return jaxbContext.createUnmarshaller();
     }
-
 
 }

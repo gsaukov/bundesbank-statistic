@@ -1,7 +1,7 @@
 package com.bundesbank.boiler.service.load;
 
-import com.bundesbank.boiler.persistance.entity.CurrencyData;
-import com.bundesbank.boiler.persistance.repository.CurrencyDataRepository;
+import com.bundesbank.boiler.persistance.entity.RateData;
+import com.bundesbank.boiler.persistance.repository.RateDataRepository;
 import de.bundesbank.statistik.zeitreihen.bbkcompact.ObsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,30 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CurrencyDataSaver {
+public class RateDataSaver {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
-    private CurrencyDataRepository repository;
+    private RateDataRepository repository;
 
-    public void saveCurrencyData(List<ObsType> seriesType, BankCurrency currency, String bbkId) {
-        List<CurrencyData> data = new ArrayList<>();
+    public void saveRateData(List<ObsType> seriesType, BankCurrency currency, String bbkId) {
+        List<RateData> data = new ArrayList<>();
         for(ObsType obsType : seriesType){
-            CurrencyData currencyData = new CurrencyData();
-            currencyData.setCurrencyId(currency);
-            currencyData.setBbkId(bbkId);
-            currencyData.setTimePeriod(parseDate(obsType.getTIMEPERIOD()));
+            RateData rateData = new RateData();
+            rateData.setCurrencyId(currency);
+            rateData.setBbkId(bbkId);
+            rateData.setTimePeriod(parseDate(obsType.getTIMEPERIOD()));
             if(obsType.getBBKOBSSTATUS() != null){
-                currencyData.setBbkObsStatus(obsType.getBBKOBSSTATUS().value());
+                rateData.setBbkObsStatus(obsType.getBBKOBSSTATUS().value());
             }
             if(obsType.getOBSVALUE() != null) {
-                currencyData.setObsValue(new BigDecimal(obsType.getOBSVALUE()));
+                rateData.setObsValue(new BigDecimal(obsType.getOBSVALUE()));
             }
             if(obsType.getBBKDIFF() != null) {
-                currencyData.setBbkDiff(new BigDecimal(obsType.getBBKDIFF()));
+                rateData.setBbkDiff(new BigDecimal(obsType.getBBKDIFF()));
             }
-            data.add(currencyData);
+            data.add(rateData);
         }
         repository.saveAll(data);
     }
