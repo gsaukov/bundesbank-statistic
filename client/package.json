@@ -21,7 +21,9 @@
     "@angular/router": "~10.0.6",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "@angular/cdk": "latest",
+    "@angular/material": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.5",

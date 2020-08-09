@@ -1,0 +1,50 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+table {
+  width: 80%;
+}
+
+.mat-cell, .mat-header-cell {
+  background-color: black;
+  font-size: 2em;
+  color: grey;
+}
+
+tr:hover .mat-cell{
+  color: white !important;
+  cursor: pointer;
+}
+
+
+//https://stackoverflow.com/questions/55241603/material-pagination-dropdown-out-of-place
+::ng-deep {
+  .cdk-overlay-container,
+  .cdk-global-overlay-wrapper {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .cdk-overlay-container {
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .cdk-overlay-pane {
+    background-color: black;
+    border: 1px solid gray;
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 1000;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+    height: 1.5em !important;
+  }
+}

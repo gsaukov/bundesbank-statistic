@@ -1,0 +1,31 @@
+<table mat-table [dataSource]="dataSource | slice: lowValue : highValue" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="CURRENCY">
+    <th mat-header-cell *matHeaderCellDef> CURRENCY </th>
+    <td mat-cell *matCellDef="let element"> {{element.currencyId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="DATE">
+    <th mat-header-cell *matHeaderCellDef> DATE </th>
+    <td mat-cell *matCellDef="let element"> {{element.timePeriod | date:'medium'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="RATE">
+    <th mat-header-cell *matHeaderCellDef> RATE </th>
+    <td mat-cell *matCellDef="let element"> {{element.obsValue}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="DIFF">
+    <th mat-header-cell *matHeaderCellDef> DIFF </th>
+    <td mat-cell *matCellDef="let element"> {{element.bbkDiff}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="dataSource.length" [pageSize]=20
+               (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 50]"
+               showFirstLastButtons="true">
+</mat-paginator>
+

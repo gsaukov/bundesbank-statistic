@@ -34,7 +34,7 @@ public class RateController {
     }
 
     @PostMapping("/v1/rates/{currencyId}/exchange")
-    public ExchangeResponse getRate(@PathVariable String currencyId, @RequestBody ExchangeRequest request) {
+    public ExchangeResponse exchange(@PathVariable String currencyId, @RequestBody ExchangeRequest request) {
         return exchangeService.exchange(currencyId, request);
     }
 

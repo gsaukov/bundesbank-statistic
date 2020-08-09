@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Audiowide;
+  font-size: 0.8em;
+  color: honeydew;
+  background-color: black;
+}
+
+.mat-paginator-container {
+  justify-content: flex-start !important;
+  background-color: black !important;
+  color: gray;
+  font-size: 2em;
+}
+
+.mat-paginator-page-size {
+  align-items: center !important;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+  color: white;
+  background: transparent;
+}
+
+.mat-button[disabled], .mat-icon-button[disabled], .mat-stroked-button[disabled], .mat-flat-button[disabled] {
+  color: gray;
+  background: transparent;
+}
+
+/*.mat-paginator-page-size-select {*/
+/*  margin: 0 0 0 5px !important;*/
+/*}*/
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  color: white !important;
+  padding: 0 !important;
+}
