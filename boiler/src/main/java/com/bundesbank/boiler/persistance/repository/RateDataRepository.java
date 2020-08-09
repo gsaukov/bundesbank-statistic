@@ -14,6 +14,12 @@ public interface RateDataRepository extends JpaRepository<RateData, String> {
 
     List<RateData> findByCurrencyIdAndBbkObsStatus (BankCurrency currencyId, String bbkObsStatus);
 
+    @Query(value = "select * from RATE_DATA  " +
+            "where CURRENCY_ID = ?1 and TIME_PERIOD <= ?2 and OBS_VALUE is not null " +
+            "order by CURRENCY_ID asc " +
+            "limit 1", nativeQuery=true)
+    RateData findMostRecentToDate (String currencyId, LocalDate date);
+
     @Query(value = "select rd.currencyId as currencyId, max(rd.timePeriod) as timePeriod " +
             " from RateData rd group by rd.currencyId")
     List<LastUpdatedRateData> findLastUpdated ();

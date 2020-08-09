@@ -29,3 +29,6 @@ management:
     web:
       exposure:
           include: "*"
+
+#i always check what hibernate does for every query.
+#logging.level.org.hibernate: TRACE

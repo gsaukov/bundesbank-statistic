@@ -2,11 +2,11 @@ package com.bundesbank.boiler.controller;
 
 import com.bundesbank.boiler.persistance.entity.RateData;
 import com.bundesbank.boiler.persistance.repository.RateDataRepository;
+import com.bundesbank.boiler.service.ExchangeService;
 import com.bundesbank.boiler.service.load.BankCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,6 +17,9 @@ public class RateController {
 
     @Autowired
     private RateDataRepository repository;
+
+    @Autowired
+    private ExchangeService exchangeService;
 
     @GetMapping("/v1/rates")
     public List<String> getCurrencies(){
@@ -31,8 +34,8 @@ public class RateController {
     }
 
     @PostMapping("/v1/rates/{currencyId}/exchange")
-    public BigDecimal getRate(@PathVariable String currencyId, @RequestBody String date){
-        return new BigDecimal(10);
+    public ExchangeResponse getRate(@PathVariable String currencyId, @RequestBody ExchangeRequest request) {
+        return exchangeService.exchange(currencyId, request);
     }
 
 }
