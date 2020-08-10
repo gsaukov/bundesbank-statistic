@@ -20,11 +20,16 @@ public class ExchangeService {
 
     private ExchangeResponse buildExchangeResponse(ExchangeRequest exchangeRequest, RateData rateData) {
         ExchangeResponse response = new ExchangeResponse();
-        response.setCurrency(rateData.getCurrencyId().name());
-        response.setRequestDate(exchangeRequest.getDate());
-        response.setActualDate(rateData.getTimePeriod());
-        response.setOriginalAmount(exchangeRequest.getAmount());
-        response.setExchangedAmount(exchangeRequest.getAmount().multiply(rateData.getObsValue()));
+        if(rateData == null) {
+            response.setStatus(ExchangeResponse.Status.NO_DATA);
+        } else {
+            response.setCurrency(rateData.getCurrencyId().name());
+            response.setRequestDate(exchangeRequest.getDate());
+            response.setActualDate(rateData.getTimePeriod());
+            response.setOriginalAmount(exchangeRequest.getAmount());
+            response.setExchangedAmount(exchangeRequest.getAmount().multiply(rateData.getObsValue()));
+            response.setStatus(ExchangeResponse.Status.OK);
+        }
         return response;
     }
 }

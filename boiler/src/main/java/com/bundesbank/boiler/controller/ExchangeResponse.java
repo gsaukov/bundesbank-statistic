@@ -19,6 +19,8 @@ public class ExchangeResponse {
 
     private String currency;
 
+    private Status status;
+
     public LocalDate getRequestDate() {
         return requestDate;
     }
@@ -57,6 +59,19 @@ public class ExchangeResponse {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public enum Status {
+        OK,
+        NO_DATA
     }
 
 }
