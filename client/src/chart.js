@@ -24,7 +24,7 @@ let AccPerfChart = {
                 .attr('x', 0)
                 .attr('text-anchor', 'start')
                 .attr('font-weight', 600)
-                .text('$ tsd'))
+                .text('€'))
             .select('.domain').remove();
 
         chartObj.plot.select('.baseline')
@@ -47,8 +47,6 @@ let AccPerfChart = {
         path.each((d, i) => {
             const sel = d3.select(`#line-${d.name}`);
             const length = sel.node().getTotalLength();
-            //https://stackoverflow.com/questions/13893127/how-to-draw-a-path-smoothly-from-start-point-to-end-point-in-d3-js
-            //if it is not smooth disable glow filter.
             sel.attr('stroke-dasharray', `${length} ${length}`)
                 .attr('stroke-dashoffset', length)
                 .transition()
@@ -57,13 +55,13 @@ let AccPerfChart = {
         })
 
         chartObj.plot.selectAll('.line-label')
-            // .attr('class', 'line-label glowed')
+            .attr('class', 'line-label')
             .attr('x', 10)
             .attr('y', 30)
             .attr('dy', '.35em')
             .attr('fill', d => chartObj.colour(d.name))
             .attr('font-weight', 700)
-            .text(d => d.name + ' ' + d.value.value)
+            .text(d => d.name + ' ' + d.value.value + ' ' + new Date(d.value.date).toISOString().substring(0, 10))
             .attr('opacity', 0)
             .transition()
             .delay(4000)
@@ -75,7 +73,7 @@ let AccPerfChart = {
             .attr('transform', d => {
                 return `translate(${chartObj.x(d.value.date)}, ${chartObj.y(d.value.value)})`;
             })
-            .attr('class', 'circle glowed')
+            .attr('class', 'circle')
             .attr('x', 0)
             .attr('opacity', 0)
             .transition()
@@ -84,21 +82,6 @@ let AccPerfChart = {
             .attr('opacity', 1);
 
         //glow filter
-        let defs = chartObj.svg.append("defs");
-
-        let filter = defs.append("filter")
-            .attr("id","glow");
-
-        filter.append("feGaussianBlur")
-            .attr("class", "blur")
-            .attr("stdDeviation","15")
-            .attr("result","coloredBlur");
-
-        let feMerge = filter.append("feMerge");
-        feMerge.append("feMergeNode")
-            .attr("in","coloredBlur");
-        feMerge.append("feMergeNode")
-            .attr("in","SourceGraphic");
     },
 
     bindData: function (chartData, chartObj) {
@@ -115,7 +98,7 @@ let AccPerfChart = {
 
         // bind data to DOM elements
         const $lines = chartObj.plot.append('g')
-            .attr('class', 'lines glowed')
+            .attr('class', 'lines')
             .selectAll('.line')
             .data(data)
             .enter()
@@ -126,10 +109,7 @@ let AccPerfChart = {
 
 
         $lines.append('path')
-            .attr('class', 'path glowed')
-
-        //enable glow
-        d3.selectAll(".glowed").style("filter","url(#glow)");
+            .attr('class', 'path')
 
         $lines.append('text')
             .datum(d => {
@@ -148,7 +128,7 @@ let AccPerfChart = {
                     value: d.values[d.values.length - 1]
                 }
             })
-            .attr('class', 'circle glowed')
+            .attr('class', 'circle')
             .attr('r', 4)
             .attr('fill', '#000000')
             .style('stroke', d => chartObj.colour(d.name))
