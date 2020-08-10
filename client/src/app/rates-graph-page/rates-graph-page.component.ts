@@ -39,6 +39,9 @@ export class RatesGraphPageComponent implements OnInit {
       dayData[i] = data
     }
 
+    // we need to reverse data to have it from young to old originally it is old to young
+    dayData = dayData.reverse();
+
     const chartData : ChartData = {
       name: rateData[0].currencyId,
       values: dayData
