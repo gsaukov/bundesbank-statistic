@@ -29,6 +29,11 @@ public class RateController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/v1/rates/status")
+    public List<RateDataRepository.LastUpdatedRateData> getCurrencyStatuses(){
+        return repository.findLastUpdated();
+    }
+
     @GetMapping("/v1/rates/{currencyId}")
     public List<RateData> getRate(@PathVariable String currencyId){
         return repository.findByCurrencyIdAndBbkObsStatus(getBankCurrency(currencyId), null);
