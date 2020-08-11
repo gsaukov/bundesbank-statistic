@@ -11,7 +11,7 @@ export class RatesService {
   }
 
   fetchCurrencies(): Observable<string[]> {
-    return this.http.get<string[]>(`/api/v1/rates/`)
+    return this.http.get<string[]>(`/api/v1/currencies/`)
   }
 
   fetchRates(currencyId: string): Observable<RateData[]> {
