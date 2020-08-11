@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api")
@@ -21,18 +19,6 @@ public class RateController {
 
     @Autowired
     private ExchangeService exchangeService;
-
-    @GetMapping("/v1/rates")
-    public List<String> getCurrencies(){
-        return Stream.of(BankCurrency.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/v1/rates/status")
-    public List<RateDataRepository.LastUpdatedRateData> getCurrencyStatuses(){
-        return repository.findLastUpdated();
-    }
 
     @GetMapping("/v1/rates/{currencyId}")
     public List<RateData> getRate(@PathVariable String currencyId){
