@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RatesService} from '../rest/rates.service';
+import {RatesService} from '../../rest/rates.service';
 
 @Component({
   selector: 'app-rates-controls-page',

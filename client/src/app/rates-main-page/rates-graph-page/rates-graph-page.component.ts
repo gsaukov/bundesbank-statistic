@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RatesTablePageComponent} from '../rates-table-page/rates-table-page.component';
-import {DataService} from '../shared/data.service';
-import {RateData} from '../rest/model/rateData';
+import {DataService} from '../../shared/data.service';
+import {RateData} from '../../rest/model/rateData';
 
 //D3,AccPerfChart will be in browser window.
 declare var d3

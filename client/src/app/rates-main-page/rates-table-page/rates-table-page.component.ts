@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {DataService} from '../shared/data.service';
+import {DataService} from '../../shared/data.service';
 
 @Component({
   selector: 'app-rates-table-page',

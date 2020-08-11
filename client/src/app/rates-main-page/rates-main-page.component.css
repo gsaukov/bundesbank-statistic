@@ -1,0 +1,13 @@
+.rates-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.rates-table {
+  width: 50%;
+}
+
+.rates-controls {
+  width: 100%;
+}
