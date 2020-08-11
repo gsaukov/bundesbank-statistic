@@ -16,14 +16,18 @@ let AccPerfChart = {
         chartObj.plot.select('.axis.x')
             .attr('transform', `translate(0, ${height})`)
             .call(chartObj.xAxis)
+            .attr('font-weight', 100)
+            .attr('font-size', "1.2em")
             .select('.domain').remove();
 
         chartObj.plot.select('.axis.y')
             .call(chartObj.yAxis)
+            .attr('font-weight', 100)
+            .attr('font-size', "1.2em")
             .call(g => g.select('.tick:last-of-type text').clone()
                 .attr('x', 0)
                 .attr('text-anchor', 'start')
-                .attr('font-weight', 600)
+                .attr('font-weight', 300)
                 .text('€'))
             .select('.domain').remove();
 
@@ -41,7 +45,6 @@ let AccPerfChart = {
         const path = chartObj.plot.selectAll('path')
             .attr('d', d => chartObj.line(d.values))
             .attr('stroke', d => chartObj.colour(d.name))
-            // .attr('opacity', d => d.name == 'Highlight' ? 1 : 0.5)
             .attr('id', (d, i) => `line-${d.name}`)
 
         path.each((d, i) => {
@@ -60,7 +63,8 @@ let AccPerfChart = {
             .attr('y', 30)
             .attr('dy', '.35em')
             .attr('fill', d => chartObj.colour(d.name))
-            .attr('font-weight', 700)
+            .attr('font-weight', 400)
+            .attr('font-size', "1.5em")
             .text(d => d.name + ' ' + d.value.value + ' ' + new Date(d.value.date).toISOString().substring(0, 10))
             .attr('opacity', 0)
             .transition()
@@ -130,7 +134,7 @@ let AccPerfChart = {
             })
             .attr('class', 'circle')
             .attr('r', 4)
-            .attr('fill', '#000000')
+            .attr('fill', '#ffffff')
             .style('stroke', d => chartObj.colour(d.name))
             .style('stroke-width', 2)
 
@@ -143,59 +147,7 @@ let AccPerfChart = {
         chartObj.plot.append('line')
             .attr('class', 'baseline')
 
-    //    window.addEventListener('resize', this.debounce(this.render, 200));
         this.render(chartObj);
     },
 
-    debounce: function (chartObj, func, wait, immediate){
-        let timeout, args, context, timestamp, result;
-        if (null == wait) wait = 100;
-
-        function later() {
-            var last = Date.now() - timestamp;
-
-            if (last < wait && last >= 0) {
-                timeout = setTimeout(later, wait - last);
-            } else {
-                timeout = null;
-                if (!immediate) {
-                    result = func.apply(context, args);
-                    context = args = null;
-                }
-            }
-        };
-
-        let debounced = function(){
-            context = this;
-            args = arguments;
-            timestamp = Date.now();
-            var callNow = immediate && !timeout;
-            if (!timeout) timeout = setTimeout(later, wait);
-            if (callNow) {
-                result = func.apply(context, args);
-                context = args = null;
-            }
-
-            return result;
-        };
-
-        debounced.clear = function() {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
-            }
-        };
-
-        debounced.flush = function() {
-            if (timeout) {
-                result = func.apply(context, args);
-                context = args = null;
-
-                clearTimeout(timeout);
-                timeout = null;
-            }
-        };
-
-        return debounced;
-    }
 }
