@@ -6,10 +6,11 @@ body {
 }
 
 .mat-paginator-container {
+  min-width: 650px;
   justify-content: flex-start !important;
   background-color: black !important;
   color: gray;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 .mat-paginator-page-size {

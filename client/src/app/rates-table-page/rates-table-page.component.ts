@@ -18,7 +18,7 @@ export class RatesTablePageComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataSource = this.dataService.getData()
+    this.dataSource = this.dataService.getData("USD")
   }
 
   public getPaginatorData(event: PageEvent): PageEvent {

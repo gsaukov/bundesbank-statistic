@@ -1,0 +1,59 @@
+
+.rates-btn {
+  background: transparent;
+  font-size: 1.5rem;
+  padding: 1rem 3rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: #f4f4f4;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid  rgb(195, 195, 195);
+  position: relative;
+  overflow: hidden;
+}
+
+.rates-selector {
+  background: transparent;
+  font-size: 1.5rem;
+  padding: 1rem 3rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: #f4f4f4;
+}
+
+.rates-input {
+  width: 10ch;
+  background: transparent;
+  font-size: 1.5rem;
+  padding: 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: #f4f4f4;
+  border: 1px solid rgb(195, 195, 195);
+}
+
+.rates-input-date {
+  width: 15ch;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+  filter: invert(100%);
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+}
+
+.rates-btn:hover, .rates-selector:hover, .rates-input:hover {
+  box-shadow: 1px 1px 5px 2px rgb(255, 255, 255);
+}
+
+.exchange-result{
+  display: inline-table;
+  vertical-align: middle;
+  font-size: 3em;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  padding-bottom: 0.6rem;
+}

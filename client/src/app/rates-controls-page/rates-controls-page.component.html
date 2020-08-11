@@ -1,1 +1,18 @@
-<p>rates-controls-page works!</p>
+<form id="rateform" action="#" >
+  <fieldset class="form-group">
+    <div class="row-container">
+      <select id="rateSelector" class="rates-selector">
+        <option *ngFor="let el of selectorData">{{el}}</option>
+      </select>
+      <button class="rates-btn" >GET RATES</button>
+      <input class="rates-input" type="number" step="1.00">
+      <input class="rates-input rates-input-date" placeholder="yyyy-mm-dd" type="date">
+      <button class="rates-btn" >EXCHANGE</button>
+      <div class="exchange-result">128.80 €</div>
+    </div>
+  </fieldset>
+</form>
+
+
+
+

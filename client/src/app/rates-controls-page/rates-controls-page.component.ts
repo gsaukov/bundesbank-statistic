@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RatesService} from '../rest/rates.service';
 
 @Component({
   selector: 'app-rates-controls-page',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RatesControlsPageComponent implements OnInit {
 
-  constructor() { }
+  selectorData: string[]
+
+  constructor(private ratesService: RatesService) { }
 
   ngOnInit(): void {
+    this.ratesService.fetchCurrencies().subscribe(
+      (data) => {
+        this.selectorData = data
+      }
+    )
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RatesTablePageComponent} from '../rates-table-page/rates-table-page.component';
 import {DataService} from '../shared/data.service';
-import {RateData} from '../rest';
+import {RateData} from '../rest/model/rateData';
 
 //D3,AccPerfChart will be in browser window.
 declare var d3
@@ -27,7 +27,7 @@ export class RatesGraphPageComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    const rateData: RateData [] = this.dataService.getData();
+    const rateData: RateData [] = this.dataService.getData("USD");
     const parsed3Date = d3.timeParse('%Y-%m-%d')
 
     let dayData: CurrencyDayData [] = [];
@@ -51,7 +51,7 @@ export class RatesGraphPageComponent implements OnInit {
 
   createChartObj():any {
     let chartObj:any = {};
-    chartObj.margin = { top: 100, right: 70, bottom: 30, left: 50 };
+    chartObj.margin = { top: 40, right: 70, bottom: 30, left: 30 };
     chartObj.chart = d3.select('#rateGraph');
     chartObj.svg = chartObj.chart.append('svg');
     chartObj.plot = chartObj.svg.append('g').attr('transform', `translate(${chartObj.margin.left}, ${chartObj.margin.top})`);

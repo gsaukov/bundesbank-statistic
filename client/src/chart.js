@@ -5,7 +5,7 @@ let AccPerfChart = {
         let margin = chartObj.margin;
 
         const width = parseInt(chartObj.chart.node().offsetWidth) - margin.left - margin.right;
-        const height = parseInt(width * 0.4) - margin.top - margin.bottom;
+        const height = parseInt(width * 0.65) - margin.top - margin.bottom;
 
         chartObj.svg.attr('width', width + margin.left + margin.right)
                 .attr('height', height + margin.top + margin.bottom);
