@@ -59,7 +59,7 @@ let AccPerfChart = {
 
         chartObj.plot.selectAll('.line-label')
             .attr('class', 'line-label')
-            .attr('x', 10)
+            .attr('x', width - 200)
             .attr('y', 30)
             .attr('dy', '.35em')
             .attr('fill', d => chartObj.colour(d.name))
