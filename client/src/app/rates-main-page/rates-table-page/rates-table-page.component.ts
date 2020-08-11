@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {RateData} from '../../rest/model/rateData';
 import {DataService} from '../../shared/data.service';
 
 @Component({
@@ -11,14 +12,13 @@ import {DataService} from '../../shared/data.service';
 export class RatesTablePageComponent implements OnInit {
 
   displayedColumns: string[] = ['CURRENCY', 'DATE', 'RATE', 'DIFF'];
-  public dataSource;
+  // public dataSource: RateData[];
   lowValue = 0;
   highValue = 20;
 
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataSource = this.dataService.getData("USD")
   }
 
   public getPaginatorData(event: PageEvent): PageEvent {
@@ -26,5 +26,9 @@ export class RatesTablePageComponent implements OnInit {
     this.highValue = this.lowValue + event.pageSize;
     return event;
   }
+
+  // public setDataSource(dataSource: RateData[]) {
+  //   this.dataSource = dataSource;
+  // }
 
 }

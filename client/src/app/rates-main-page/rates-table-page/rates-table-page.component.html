@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource | slice: lowValue : highValue" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataService.dataSource | slice: lowValue : highValue" class="mat-elevation-z8">
 
   <ng-container matColumnDef="CURRENCY">
     <th mat-header-cell *matHeaderCellDef> CURRENCY </th>
@@ -24,7 +24,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [length]="dataSource.length" [pageSize]=20
+<mat-paginator [length]="dataService.dataSource.length" [pageSize]=20
                (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 50]"
                showFirstLastButtons="true">
 </mat-paginator>
