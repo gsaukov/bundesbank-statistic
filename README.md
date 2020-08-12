@@ -1,12 +1,12 @@
 # Java/Angular challenge - speed integration with Bundesbank.
 
-###Front:
+### Front:
 * Angular9 - Glues the front-end.
 * Material - UI Components
 * D3V5 - Js visualisation of currency rate
 
 
-###Back:
+### Back:
 * Gradle - Automates build.
 * Spring Boot - Back end core. 
 * Spring REST - Rest API
@@ -16,3 +16,5 @@
 * Data - Comes from https://www.bundesbank.de/dynamic/action/de/statistiken/zeitreihen-datenbanken/zeitreihen-datenbank/759778/759778?listId=www_s331_b01012_3 as SDMX-ML XML
 
 ![](exchnage_design.png)
+
+TODO: Build/Run steps
