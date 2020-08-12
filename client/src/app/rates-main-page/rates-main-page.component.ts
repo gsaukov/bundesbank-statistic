@@ -1,7 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {RatesService} from '../rest/rates.service';
 import {DataService} from '../shared/data.service';
-import {GraphService} from './rates-graph-page/graph.service';
 
 @Component({
   selector: 'app-rates-main-page',
@@ -10,21 +8,11 @@ import {GraphService} from './rates-graph-page/graph.service';
 })
 export class RatesMainPageComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataService: DataService,
-              private graphService: GraphService,
-              private ratesService: RatesService) {
+  constructor(private dataService: DataService) {
   }
 
   ngOnInit(): void {
-    this.ratesService.fetchRates("USD").subscribe(
-      (data) => {
-        this.dataService.updateData(data)
-        this.graphService.rebuildChart(data)
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+    this.dataService.updateData("USD")
   }
 
   ngAfterViewInit(): void {

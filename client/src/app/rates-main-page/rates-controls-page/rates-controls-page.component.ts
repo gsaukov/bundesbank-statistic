@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RatesService} from '../../rest/rates.service';
+import {DataService} from '../../shared/data.service';
 
 @Component({
   selector: 'app-rates-controls-page',
@@ -9,8 +10,9 @@ import {RatesService} from '../../rest/rates.service';
 export class RatesControlsPageComponent implements OnInit {
 
   selectorData: string[]
+  selectorValue: string
 
-  constructor(private ratesService: RatesService) { }
+  constructor(private ratesService: RatesService, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.ratesService.fetchCurrencies().subscribe(
@@ -20,4 +22,12 @@ export class RatesControlsPageComponent implements OnInit {
     )
   }
 
+  onGetRates(){
+    this.dataService.updateData(this.selectorValue)
+  }
+
+  onRateSelectorChange(value: string) {
+    this.selectorValue = value;
+    console.log(value)
+  }
 }

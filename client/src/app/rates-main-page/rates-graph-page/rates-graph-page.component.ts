@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {DataService} from '../../shared/data.service';
-import {RateData} from '../../rest/model/rateData';
+import {Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {GraphService} from './graph.service';
 
 @Component({
   selector: 'app-rates-graph-page',
@@ -9,9 +8,19 @@ import {RateData} from '../../rest/model/rateData';
 })
 export class RatesGraphPageComponent implements OnInit {
 
-  constructor() { }
+  @ViewChildren('rateGraph') rateGraph: ElementRef
+
+  constructor(private graphService: GraphService) { }
 
   ngOnInit(): void {
+    this.graphService.cleanObservable.subscribe(e => {this.cleanGraph()})
   }
 
+  cleanGraph(): void {
+    const childElements = this.rateGraph.nativeElement.children;
+    debugger
+    for (let child of childElements) {
+      this.rateGraph.nativeElement.removeChild(this.rateGraph.nativeElement, child);
+    }
+  }
 }

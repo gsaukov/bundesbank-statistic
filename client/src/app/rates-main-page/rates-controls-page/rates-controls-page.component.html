@@ -1,10 +1,10 @@
 <form id="rateform" action="#" >
   <fieldset class="form-group">
     <div class="row-container">
-      <select id="rateSelector" class="rates-selector">
+      <select id="rateSelector" (change)="onRateSelectorChange($event.target.value)" class="rates-selector">
         <option *ngFor="let el of selectorData">{{el}}</option>
       </select>
-      <button class="rates-btn" >GET RATES</button>
+      <button class="rates-btn" (click)="onGetRates()">GET RATES</button>
       <input class="rates-input" type="number" step="1.00">
       <input class="rates-input rates-input-date" placeholder="yyyy-mm-dd" type="date">
       <button class="rates-btn" >EXCHANGE</button>
