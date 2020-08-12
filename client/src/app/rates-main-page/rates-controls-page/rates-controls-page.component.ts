@@ -21,7 +21,7 @@ export class RatesControlsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      amount: new FormControl(null, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]),
+      amount: new FormControl(null, [Validators.required, Validators.min(1)]),
       date: new FormControl(null, [Validators.required])
     })
     this.ratesService.fetchCurrencies().subscribe(

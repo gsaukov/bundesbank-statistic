@@ -13,7 +13,7 @@
         <div class="exchange-description">@ {{exchangeResponce.rate}}</div>
         <div class="exchange-description">Of {{exchangeResponce.actualDate | date:'mediumDate'}}</div>
       </div>
-      <div class="exchange-result" *ngIf="exchangeResponce">{{exchangeResponce.exchangedAmount + exchangeResponce.currency}}</div>
+      <div class="exchange-result" *ngIf="exchangeResponce">{{(exchangeResponce.exchangedAmount | number : '1.2-2') + exchangeResponce.currency}}</div>
     </div>
   </fieldset>
 </form>
