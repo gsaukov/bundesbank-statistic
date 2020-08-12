@@ -17,6 +17,8 @@ public class ExchangeResponse {
 
     private BigDecimal exchangedAmount;
 
+    private BigDecimal rate;
+
     private String currency;
 
     private Status status;
@@ -51,6 +53,14 @@ public class ExchangeResponse {
 
     public void setExchangedAmount(BigDecimal exchangedAmount) {
         this.exchangedAmount = exchangedAmount;
+    }
+
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     public String getCurrency() {

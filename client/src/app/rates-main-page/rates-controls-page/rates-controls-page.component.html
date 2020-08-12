@@ -2,18 +2,18 @@
   <fieldset class="form-group" >
     <div class="row-container">
       <select id="rateSelector" (change)="onRateSelectorChange($event.target.value)" class="rates-selector">
-        <option *ngFor="let el of selectorData">{{el}}</option>
+        <option *ngFor="let el of selectorData" [selected]="el === 'USD'">{{el}}</option>
       </select>
       <button class="rates-btn" (click)="onGetRates()">GET RATES</button>
       <input class="rates-input" formControlName="amount" type="number" step="1.00">
       <input class="rates-input rates-input-date" formControlName="date" placeholder="yyyy-mm-dd" type="date">
       <button class="rates-btn" [disabled]="form.invalid || form.disabled" (click)="onExchange()">EXCHANGE</button>
-      <div class="exchange-description-container">
-        <div class="exchange-description">exchanged 100 €</div>
-        <div class="exchange-description">@ 1.1783</div>
-        <div class="exchange-description">Of Aug 11, 2020</div>
+      <div class="exchange-description-container" *ngIf="exchangeResponce">
+        <div class="exchange-description">exchanged {{exchangeResponce.originalAmount}} €</div>
+        <div class="exchange-description">@ {{exchangeResponce.rate}}</div>
+        <div class="exchange-description">Of {{exchangeResponce.actualDate | date:'mediumDate'}}</div>
       </div>
-      <div class="exchange-result">117.83 $</div>
+      <div class="exchange-result" *ngIf="exchangeResponce">{{exchangeResponce.exchangedAmount + exchangeResponce.currency}}</div>
     </div>
   </fieldset>
 </form>

@@ -24,6 +24,7 @@ public class ExchangeService {
             response.setStatus(ExchangeResponse.Status.NO_DATA);
         } else {
             response.setCurrency(rateData.getCurrencyId().name());
+            response.setRate(rateData.getObsValue());
             response.setRequestDate(exchangeRequest.getDate());
             response.setActualDate(rateData.getTimePeriod());
             response.setOriginalAmount(exchangeRequest.getAmount());

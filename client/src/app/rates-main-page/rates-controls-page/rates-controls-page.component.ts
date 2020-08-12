@@ -3,6 +3,7 @@ import {RatesService} from '../../rest/rates.service';
 import {DataService} from '../../shared/data.service';
 import {ExchangeRequest} from '../../rest/model/exchangeRequest';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ExchangeResponse} from '../../rest/model/exchangeResponse';
 
 @Component({
   selector: 'app-rates-controls-page',
@@ -14,6 +15,7 @@ export class RatesControlsPageComponent implements OnInit {
   form: FormGroup;
   selectorData: string[]
   selectorValue: string
+  exchangeResponce: ExchangeResponse
 
   constructor(private ratesService: RatesService, private dataService: DataService) { }
 
@@ -27,6 +29,7 @@ export class RatesControlsPageComponent implements OnInit {
         this.selectorData = data
       }
     )
+    this.selectorValue = 'USD'
   }
 
   onGetRates(){
@@ -38,17 +41,18 @@ export class RatesControlsPageComponent implements OnInit {
   }
 
   onExchange(): void {
+    this.exchangeResponce = null;
     const request:ExchangeRequest = {
       amount: this.form.value.amount,
       date: this.form.value.date
     };
 
     console.log(request)
-    // this.ratesService.doExchange().subscribe(
-    //   (data) => {
-    //     this.selectorData = data
-    //   }
-    // )
+    this.ratesService.doExchange(this.selectorValue, request).subscribe(
+      (responce) => {
+        this.exchangeResponce = responce
+      }
+    )
 
   }
 }
