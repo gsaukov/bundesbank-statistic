@@ -14,3 +14,5 @@
 * H2 DB - in memory Database to save Data
 * xjcGenerate - Generates Bundes Bank Schema bbk http://www.bundesbank.de/statistik/zeitreihen/BBKcompact see schema folder for xsd.
 * Data - Comes from https://www.bundesbank.de/dynamic/action/de/statistiken/zeitreihen-datenbanken/zeitreihen-datenbank/759778/759778?listId=www_s331_b01012_3 as SDMX-ML XML
+
+![](exchnage_design.png)
