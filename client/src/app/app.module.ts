@@ -10,6 +10,7 @@ import { RatesControlsPageComponent } from './rates-main-page/rates-controls-pag
 import { RatesMainPageComponent } from './rates-main-page/rates-main-page.component';
 import {DataService} from './shared/data.service';
 import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -20,12 +21,13 @@ import {HttpClientModule} from '@angular/common/http';
     RatesControlsPageComponent,
     RatesMainPageComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

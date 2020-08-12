@@ -13,6 +13,15 @@
   overflow: hidden;
 }
 
+.rates-btn[disabled]{
+  background: rgb(195, 195, 195);
+}
+
+.rates-btn:hover[disabled]{
+  cursor: default;
+  box-shadow: none;
+}
+
 .rates-selector {
   background: transparent;
   font-size: 1.5rem;
@@ -46,7 +55,18 @@
 }
 
 .rates-btn:hover, .rates-selector:hover, .rates-input:hover {
+  cursor: pointer;
   box-shadow: 1px 1px 5px 2px rgb(255, 255, 255);
+}
+
+.exchange-description-container{
+  display: inline-table;
+  vertical-align: top;
+}
+
+.exchange-description{
+  font-size: 1.3em;
+  margin-left: 1rem;
 }
 
 .exchange-result{
@@ -54,6 +74,5 @@
   vertical-align: middle;
   font-size: 3em;
   margin-right: 0.5rem;
-  margin-left: 0.5rem;
-  padding-bottom: 0.6rem;
+  margin-left: 2rem;
 }
