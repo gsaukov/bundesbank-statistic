@@ -1,6 +1,7 @@
 import {RateData} from '../../rest/model/rateData';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
+import {DOCUMENT} from '@angular/common';
 
 //D3,AccPerfChart will be in browser window.
 declare var d3
@@ -21,18 +22,18 @@ export interface CurrencyDayData {
 })
 export class GraphService {
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) private document: any) { }
 
-  private subject = new Subject<any>();
-  cleanObservable = this.subject.asObservable();
-
-  cleanChartEventEmitter() {
-    this.subject.next("clean");
+  cleanChart() {
+    const graph = this.document.getElementById('rateGraph');
+    while (graph.firstChild) {
+      graph.firstChild.remove();
+    }
   }
 
   public rebuildChart(rateData: RateData []) {
 
-    this.cleanChartEventEmitter()
+    this.cleanChart()
 
     const parsed3Date = d3.timeParse('%Y-%m-%d')
 
@@ -79,8 +80,6 @@ export class GraphService {
 
     return chartObj
   }
-
-
 
 }
 

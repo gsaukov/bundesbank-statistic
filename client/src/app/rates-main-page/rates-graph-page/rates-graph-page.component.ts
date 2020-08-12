@@ -8,19 +8,9 @@ import {GraphService} from './graph.service';
 })
 export class RatesGraphPageComponent implements OnInit {
 
-  @ViewChildren('rateGraph') rateGraph: ElementRef
-
-  constructor(private graphService: GraphService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.graphService.cleanObservable.subscribe(e => {this.cleanGraph()})
   }
 
-  cleanGraph(): void {
-    const childElements = this.rateGraph.nativeElement.children;
-    debugger
-    for (let child of childElements) {
-      this.rateGraph.nativeElement.removeChild(this.rateGraph.nativeElement, child);
-    }
-  }
 }

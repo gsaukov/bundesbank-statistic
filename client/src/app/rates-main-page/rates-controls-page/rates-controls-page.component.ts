@@ -28,6 +28,5 @@ export class RatesControlsPageComponent implements OnInit {
 
   onRateSelectorChange(value: string) {
     this.selectorValue = value;
-    console.log(value)
   }
 }
