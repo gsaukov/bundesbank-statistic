@@ -48,3 +48,7 @@ In client folder run:
 ng serve --proxy-config proxy.conf.json
 ```
 this will start client on http://localhost:4200/
+
+### TODO
+1. Delta load from Bundesbank
+2. Testing 
