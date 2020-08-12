@@ -18,4 +18,21 @@
 
 ![](exchnage_design.png)
 
-TODO: Build/Run steps
+Build/Run steps
+
+You will need JAVA non less than 1.8. NODE, NPM, Angular CLI.
+
+You can import it into your IDE as gradle project so you can review source code build/test it using IDE.
+
+Or
+
+BACK:
+You can clean build this server by executing:
+./gradlew clean build
+This will generate build folder with /boiler/build/libs/boiler-1.0-SNAPSHOT.jar. To run:
+java -jar boiler-1.0-SNAPSHOT.jar
+
+This will start the server on port 8212.
+REST API Swagger http://localhost:8212/swagger-ui/index.html#/
+
+FRONT:
