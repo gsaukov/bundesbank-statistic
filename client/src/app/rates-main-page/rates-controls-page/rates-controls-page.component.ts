@@ -49,7 +49,6 @@ export class RatesControlsPageComponent implements OnInit {
       date: this.form.value.date
     };
 
-    console.log(request)
     this.ratesService.doExchange(this.selectorValue, request).subscribe(
       async (responce) => {
         this.exchangeResponce = responce
