@@ -12,14 +12,16 @@ import {ExchangeResponse} from '../../rest/model/exchangeResponse';
 })
 export class RatesControlsPageComponent implements OnInit {
 
-  form: FormGroup;
+  neonGlow: boolean
+  form: FormGroup
   selectorData: string[]
   selectorValue: string
   exchangeResponce: ExchangeResponse
 
-  constructor(private ratesService: RatesService, private dataService: DataService) { }
+  constructor(private ratesService: RatesService, public dataService: DataService) { }
 
   ngOnInit(): void {
+    this.neonGlow = false;
     this.form = new FormGroup({
       amount: new FormControl(null, [Validators.required, Validators.min(1)]),
       date: new FormControl(null, [Validators.required])
@@ -49,10 +51,18 @@ export class RatesControlsPageComponent implements OnInit {
 
     console.log(request)
     this.ratesService.doExchange(this.selectorValue, request).subscribe(
-      (responce) => {
+      async (responce) => {
         this.exchangeResponce = responce
+        this.neonGlow = true;
+        //we are async so its ok
+        await delay(1000);
+        this.neonGlow = false;
       }
     )
+
+    function delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+    }
 
   }
 }

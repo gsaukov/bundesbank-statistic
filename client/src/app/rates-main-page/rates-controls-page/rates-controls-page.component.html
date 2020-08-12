@@ -6,14 +6,16 @@
       </select>
       <button class="rates-btn" (click)="onGetRates()">GET RATES</button>
       <input class="rates-input" formControlName="amount" type="number" step="1.00">
-      <input class="rates-input rates-input-date" formControlName="date" placeholder="yyyy-mm-dd" type="date">
+      <input class="rates-input rates-input-date" formControlName="date" [ngModel]="dataService.selectedDate" placeholder="yyyy-mm-dd" type="date">
       <button class="rates-btn" [disabled]="form.invalid || form.disabled" (click)="onExchange()">EXCHANGE</button>
       <div class="exchange-description-container" *ngIf="exchangeResponce">
         <div class="exchange-description">exchanged {{exchangeResponce.originalAmount}} €</div>
         <div class="exchange-description">@ {{exchangeResponce.rate}}</div>
         <div class="exchange-description">Of {{exchangeResponce.actualDate | date:'mediumDate'}}</div>
       </div>
-      <div class="exchange-result" *ngIf="exchangeResponce">{{(exchangeResponce.exchangedAmount | number : '1.2-2') + exchangeResponce.currency}}</div>
+      <div class="exchange-result"
+           [ngClass]="neonGlow ? 'neon-glow' : ''"
+           *ngIf="exchangeResponce">{{(exchangeResponce.exchangedAmount | number : '1.2-2') + exchangeResponce.currency}}</div>
     </div>
   </fieldset>
 </form>
