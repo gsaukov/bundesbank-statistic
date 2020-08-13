@@ -5,7 +5,7 @@ From scratch to fully functional currency exchange application in 5 days.
 Application has two parts: dynamic and very alive **front end** and robust easy to maintain/deploy/container **back end**. Technical details you will find below:
 
 ### Front:
-* Angular9 - Glues the front-end.
+* Angular10 - Glues the front-end.
 * AngularMaterial - UI Components.
 * D3V5 - Js visualisation of currency rate graph.
 * HTML5 - Animations, effects, validations.

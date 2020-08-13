@@ -29,7 +29,7 @@ public class RateController {
 
     @GetMapping(value = "/v1/rates/{currencyId}/query", params = "date")
     public RateData getRateQuery(@PathVariable String currencyId,
-                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
         return repository.findMostRecentToDate(currencyId, date);
     }
 
