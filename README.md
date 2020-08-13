@@ -2,7 +2,7 @@
 
 From scratch to fully functional currency exchange application in 5 days.
 
-Technical details below:
+Application has two parts: dynamic and very alive **front end** and robust easy to maintain/deploy/container **back end**. Technical details you will find below:
 
 ### Front:
 * Angular9 - Glues the front-end.
@@ -29,7 +29,7 @@ You will need JAVA non less than 1.8. NODE, NPM, Angular CLI.
 
 You can import it into your IDE as gradle project so you can review source code build/test it using IDE.
 
-Or
+Or build/run it manually:
 
 ### BACK:
 ```sh
