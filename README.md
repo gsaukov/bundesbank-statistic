@@ -1,6 +1,6 @@
 # Java/SpringBoot/Angular challenge - speed integration with Bundesbank.
 
-From scratch to fully functional application in 5 days.
+From scratch to fully functional currency exchange application in 5 days.
 
 Technical details below:
 
