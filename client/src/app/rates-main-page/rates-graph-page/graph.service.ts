@@ -58,7 +58,7 @@ export class GraphService {
 
   createChartObj():any {
     let chartObj:any = {};
-    chartObj.margin = { top: 40, right: 70, bottom: 30, left: 30 };
+    chartObj.margin = { top: 40, right: 70, bottom: 30, left: 33 };
     chartObj.chart = d3.select('#rateGraph');
     chartObj.svg = chartObj.chart.append('svg');
     chartObj.plot = chartObj.svg.append('g').attr('transform', `translate(${chartObj.margin.left}, ${chartObj.margin.top})`);

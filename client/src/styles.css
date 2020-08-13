@@ -5,9 +5,17 @@ body {
   background-color: black;
 }
 
+.mat-table {
+  margin: 0;
+}
+
+.mat-paginator {
+  width: 680px;
+  min-width: 680px;
+}
+
 .mat-paginator-container {
-  min-width: 650px;
-  justify-content: flex-start !important;
+  justify-content: start !important;
   background-color: black !important;
   color: gray;
   font-size: 1.8em;
