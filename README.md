@@ -19,6 +19,8 @@ Application has two parts: dynamic and very live **front end** and robust easy t
 * Swagger - Rest API design and integration.
 * H2 DB - in memory Database .
 * xjcGenerate - Generates JAXB BundesBank Schema BBKcompact. See schema folder for xsd.
+  * https://api.statistiken.bundesbank.de/rest/download/BBEX3/A.AED.EUR.CA.AA.A04?format=sdmx&lang=en
+    * https://api.statistiken.bundesbank.de/rest/download/BBEX3/A.ATS.DEM.AA.AC.A04?format=sdmx&lang=en
 * DataFeed - https://www.bundesbank.de/dynamic/action/de/statistiken/zeitreihen-datenbanken/zeitreihen-datenbank/759778/759778?listId=www_s331_b01012_3 as SDMX-ML XML
 
 ![](exchnage_design.png)

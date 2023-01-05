@@ -5,32 +5,32 @@ body {
   background-color: black;
 }
 
-.mat-table {
+.mat-mdc-table {
   margin: 0;
 }
 
-.mat-paginator {
+.mat-mdc-paginator {
   width: 680px;
   min-width: 680px;
 }
 
-.mat-paginator-container {
+.mat-mdc-paginator-container {
   justify-content: start !important;
   background-color: black !important;
   color: gray;
   font-size: 1.8em;
 }
 
-.mat-paginator-page-size {
+.mat-mdc-paginator-page-size {
   align-items: center !important;
 }
 
-.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+.mat-mdc-button, .mat-mdc-icon-button, .mat-mdc-outlined-button, .mat-mdc-unelevated-button {
   color: white;
   background: transparent;
 }
 
-.mat-button[disabled], .mat-icon-button[disabled], .mat-stroked-button[disabled], .mat-flat-button[disabled] {
+.mat-mdc-button[disabled], .mat-mdc-icon-button[disabled], .mat-mdc-outlined-button[disabled], .mat-mdc-unelevated-button[disabled] {
   color: gray;
   background: transparent;
 }
@@ -38,6 +38,7 @@ body {
 /*.mat-paginator-page-size-select {*/
 /*  margin: 0 0 0 5px !important;*/
 /*}*/
+/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
 .mat-form-field-appearance-fill .mat-form-field-flex {
   color: white !important;
   padding: 0 !important;

@@ -5,13 +5,13 @@ table {
   width: 100%;
 }
 
-.mat-cell, .mat-header-cell {
+.mat-mdc-cell, .mat-mdc-header-cell {
   background-color: black;
   font-size: 2em;
   color: grey;
 }
 
-tr:hover .mat-cell{
+tr:hover .mat-mdc-cel{
   color: white !important;
   cursor: pointer;
 }
@@ -44,7 +44,7 @@ tr:hover .mat-cell{
     max-height: 100%;
   }
 
-  .mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+  .mat-mdc-select-panel .mat-mdc-optgroup-label, .mat-mdc-select-panel .mat-mdc-option {
     height: 1.5em !important;
   }
 }
