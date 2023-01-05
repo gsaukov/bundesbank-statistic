@@ -6,12 +6,12 @@ table {
 }
 
 .mat-mdc-cell, .mat-mdc-header-cell {
-  background-color: black;
-  font-size: 2em;
-  color: grey;
+  background-color: black !important;
+  font-size: 2em !important;
+  color: grey !important;
 }
 
-tr:hover .mat-mdc-cel{
+tr:hover .mat-mdc-cell{
   color: white !important;
   cursor: pointer;
 }

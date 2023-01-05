@@ -39,7 +39,7 @@ body {
 /*  margin: 0 0 0 5px !important;*/
 /*}*/
 /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-.mat-form-field-appearance-fill .mat-form-field-flex {
+.mat-mdc-form-field-appearance-fill .mat-mdc-form-field-flex {
   color: white !important;
   padding: 0 !important;
 }
