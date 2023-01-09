@@ -33,8 +33,6 @@ tr:hover .mat-mdc-cell{
   }
 
   .cdk-overlay-pane {
-    background-color: black;
-    border: 1px solid gray;
     position: absolute;
     pointer-events: auto;
     box-sizing: border-box;
@@ -42,6 +40,12 @@ tr:hover .mat-mdc-cell{
     display: flex;
     max-width: 100%;
     max-height: 100%;
+  }
+
+  .mdc-tooltip__surface {
+    background-color: black !important;
+    border: 1px solid gray !important;
+    color: grey !important;
   }
 
   .mat-mdc-select-panel .mat-mdc-optgroup-label, .mat-mdc-select-panel .mat-mdc-option {
