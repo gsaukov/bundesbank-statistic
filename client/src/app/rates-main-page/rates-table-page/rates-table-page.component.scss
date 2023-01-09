@@ -33,6 +33,8 @@ tr:hover .mat-mdc-cell{
   }
 
   .cdk-overlay-pane {
+    background-color: black;
+    border: 1px solid gray;
     position: absolute;
     pointer-events: auto;
     box-sizing: border-box;
@@ -42,6 +44,7 @@ tr:hover .mat-mdc-cell{
     max-height: 100%;
   }
 
+  //tooltip
   .mdc-tooltip__surface {
     background-color: black !important;
     border: 1px solid gray !important;
