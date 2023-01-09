@@ -9,16 +9,20 @@ body {
   margin: 0;
 }
 
+.mdc-data-table__row {
+  height: 40px !important;
+}
+
 .mat-mdc-paginator {
-  width: 680px;
-  min-width: 680px;
+  width: 600px;
+  min-width: 600px;
 }
 
 .mat-mdc-paginator-container {
   justify-content: start !important;
   background-color: black !important;
   color: gray;
-  font-size: 1.8em;
+  font-size: 1.4em;
 }
 
 .mat-mdc-paginator-page-size {

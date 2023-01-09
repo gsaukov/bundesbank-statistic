@@ -18,7 +18,7 @@ export class RatesTablePageComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.paginator._intl.itemsPerPageLabel="# of items";
+    this.paginator._intl.itemsPerPageLabel="items #";
   }
 
   public getPaginatorData(event: PageEvent): PageEvent {
