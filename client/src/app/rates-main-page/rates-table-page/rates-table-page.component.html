@@ -24,7 +24,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="dataService.selectDate(row.timePeriod)"></tr>
 </table>
 
-<mat-paginator [length]="dataService.dataSource ? dataService.dataSource.length : 0" [pageSize]=20
+<mat-paginator #paginator [length]="dataService.dataSource ? dataService.dataSource.length : 0" [pageSize]=20
                (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 50]"
                showFirstLastButtons="true">
 </mat-paginator>

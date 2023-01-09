@@ -10,6 +10,7 @@ import {DataService} from '../../shared/data.service';
 
 export class RatesTablePageComponent implements OnInit {
 
+  @ViewChild('paginator', {static : true})  paginator: MatPaginator
   displayedColumns: string[] = ['CURRENCY', 'DATE', 'RATE', 'DIFF'];
   lowValue = 0;
   highValue = 20;
@@ -17,6 +18,7 @@ export class RatesTablePageComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
+    this.paginator._intl.itemsPerPageLabel="# of items";
   }
 
   public getPaginatorData(event: PageEvent): PageEvent {
